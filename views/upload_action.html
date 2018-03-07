@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>ADD</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+
+<body>
+<form action="/upload" method="post" enctype="multipart/form-data" >
+    <input type="file" name="uploadname" />
+    <input type="submit">
+    {{ .xsrfdata }}
+</form>
+</body>
+</html>
