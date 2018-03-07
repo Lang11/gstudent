@@ -34,18 +34,31 @@ func (c *SController) Create() {
 	}
 
 	o := orm.NewOrm()
+	o.Begin()
 	id, err := o.Insert(stu)
-	if err == nil {
-		beego.Info("S:", id)
-		c.TplName = "200.html"
+	if err != nil {
+		beego.Error(err)
+		o.Rollback()
+		c.Abort("500")
 	}
-
+	o.Commit()
+	beego.Info("S:", id)
+	c.TplName = "200.html"
 }
 
 func (c *SController) Update() {
 	stu := new(models.GStudent)
 	c.ParseForm(stu)
 	beego.Info("Update:", stu)
+
+	o := orm.NewOrm()
+	num, err := o.Update(stu, "name", "sex", "class")
+	if  err != nil {
+		beego.Error(err)
+		c.Abort("500")
+	}
+	beego.Info(num)
+	c.TplName = "200.html"
 }
 
 func (c *SController) Delete() {
@@ -54,12 +67,13 @@ func (c *SController) Delete() {
 	beego.Info("Delete:", stu)
 
 	o := orm.NewOrm()
-	if num,err:=o.Delete(&models.GStudent{Id:1});err== nil {
-		beego.Info(num)
-		c.TplName = "200.html"
-	}else{
+	num, err := o.Delete(&models.GStudent{Id: 1})
+	if  err != nil {
+		beego.Error(err)
 		c.Abort("500")
 	}
+	beego.Info(num)
+	c.TplName = "200.html"
 }
 
 func (c *SController) Read() {
