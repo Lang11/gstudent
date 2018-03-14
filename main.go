@@ -2,7 +2,7 @@ package main
 
 import (
 	_ "github.com/Lang11/gstudent/routers"
-	_ "github.com/Lang11/gstudent/db"
+	_ "github.com/Lang11/gstudent/gsdb"
 	"github.com/astaxie/beego"
 	"github.com/Lang11/gstudent/controllers"
 )

@@ -1,4 +1,4 @@
-package db
+package gsdb
 
 import (
 	"github.com/astaxie/beego/orm"
